@@ -45,6 +45,8 @@ export default class Slide {
       this.wrapper.addEventListener('touchstart', this.onStart.bind(this));
       this.wrapper.addEventListener('mouseup', this.onEnd.bind(this));
       this.wrapper.addEventListener('touchend', this.onEnd.bind(this));
+      this.activePrevSlide = this.activePrevSlide.bind(this)
+      this.activeNextSlide = this.activeNextSlide.bind(this)
     }
   
     onEnd(e) {
@@ -144,7 +146,24 @@ export default class Slide {
       this.addSlideEvents();
       this.slideConfig();
       this.addReziseEvent();
+      this.changeSlide(0)
       return this;
     }
   }
-  
+
+
+
+ export class SlideNav extends Slide {
+ 
+  addArrow(prev, next){
+    this.prevElement = document.querySelector(prev);
+    this.nextElement = document.querySelector(next);
+    this.addArrowEvents();
+  }
+
+  addArrowEvents(){
+    this.prevElement.addEventListener('click', this.activePrevSlide);
+    this.nextElement.addEventListener('click', this.activeNextSlide);
+  }
+
+  }
